@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3fs0ggivrxie"]
+
+[ext_resource type="Script" uid="uid://b8i65hflw5xku" path="res://Scripts/Camera.gd" id="1_375tr"]
+
+[node name="Camera" type="Camera2D" groups=["Camera"]]
+zoom = Vector2(1.02, 1.02)
+script = ExtResource("1_375tr")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-641, 0)

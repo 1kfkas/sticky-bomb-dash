@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0dy2cecdruyq"]
+
+[ext_resource type="PackedScene" uid="uid://ca8njbwel7sp3" path="res://Scenes/Player.tscn" id="1_8a0p6"]
+[ext_resource type="PackedScene" uid="uid://d3fs0ggivrxie" path="res://Scenes/Camera.tscn" id="3_aldhi"]
+[ext_resource type="PackedScene" uid="uid://b15pwvln10cn5" path="res://Scenes/Terrains/StraightTerrain.tscn" id="3_oos0n"]
+
+[node name="testLevel" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_8a0p6")]
+position = Vector2(8, -16)
+
+[node name="Camera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_aldhi")]
+player = NodePath("../Player")
+
+[node name="StraightTerrain" parent="." instance=ExtResource("3_oos0n")]
