@@ -1,22 +1,31 @@
 extends Camera2D
 
 @onready var markerLimit: Marker2D = $Marker2D
-var markerInitialX: float
 
-@export var player: CharacterBody2D;
+var rng = RandomNumberGenerator.new()
+var previousX: float = position.x
 
 func _ready() -> void:
+	rng.randomize()
 	Global.camera = self
-	
-	markerInitialX = markerLimit.position.x
-	
-	var playerNode = get_tree().get_nodes_in_group("Player");
-	
-	if playerNode:
-		player = playerNode[0];
 
 func _process(delta: float) -> void:
-	if player:
-		position = player.position + Vector2(100.0, 0);
+	if Global.player:
+		if Global.player.position.x > previousX:
+			position.x = Global.player.position.x;
+			previousX = position.x
+		
+		position.y = Global.player.position.y
+		
+		var playerFactor: float = 0.0
+		zoom = Vector2(1.0 - playerFactor, 1.0 - playerFactor)
 	
-	markerLimit.position.x = markerInitialX * zoom.x
+	if Global.shake > 0.0:
+		Global.shake -= 10 * delta
+	
+	var mouseViewport = get_viewport().get_mouse_position()
+	
+	var shakeVector = Vector2(rng.randf_range(-Global.shake, Global.shake), rng.randf_range(-Global.shake, Global.shake))
+	var dinamicVector = Vector2(mouseViewport.x/2.0, (mouseViewport.y-100.0)/1.5)
+	offset = shakeVector + dinamicVector
+	

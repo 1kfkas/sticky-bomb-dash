@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://cahj5k702egod"]
+
+[ext_resource type="Texture2D" uid="uid://b4k1u4mlrt3ot" path="res://Assets/Enemys/bullet.png" id="1_d2ixt"]
+[ext_resource type="Script" uid="uid://d18w5hab6j3jk" path="res://Scripts/Enemys/Bullet.gd" id="2_7qnkb"]
+[ext_resource type="Script" uid="uid://b257yeqvf8sg8" path="res://Scripts/Enemys/gpu_particles_2d.gd" id="3_cm0o1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d2ixt"]
+radius = 5.0
+
+[sub_resource type="Curve" id="Curve_7qnkb"]
+_data = [Vector2(0.0692308, 1), 0.0, 0.0, 0, 0, Vector2(0.207692, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_cm0o1"]
+curve = SubResource("Curve_7qnkb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_10hbp"]
+particle_flag_disable_z = true
+angle_min = -1014.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_max = 125.0
+alpha_curve = SubResource("CurveTexture_cm0o1")
+
+[node name="Bullet" type="Sprite2D"]
+texture = ExtResource("1_d2ixt")
+offset = Vector2(0, -9.5)
+script = ExtResource("2_7qnkb")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_d2ixt")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 328
+lifetime = 0.52
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_10hbp")
+script = ExtResource("3_cm0o1")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="finished" from="GPUParticles2D" to="GPUParticles2D" method="_on_finished"]

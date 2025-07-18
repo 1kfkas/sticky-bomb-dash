@@ -1,10 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3fs0ggivrxie"]
+[gd_scene load_steps=3 format=3 uid="uid://d3fs0ggivrxie"]
 
 [ext_resource type="Script" uid="uid://b8i65hflw5xku" path="res://Scripts/Camera.gd" id="1_375tr"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqtc1"]
+size = Vector2(20, 300)
+
 [node name="Camera" type="Camera2D" groups=["Camera"]]
-zoom = Vector2(1.02, 1.02)
 script = ExtResource("1_375tr")
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(-641, 0)
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-170, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_yqtc1")

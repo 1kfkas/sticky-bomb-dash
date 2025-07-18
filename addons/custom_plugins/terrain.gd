@@ -10,7 +10,6 @@ func _enter_tree() -> void:
 func _process(delta: float) -> void:
 	if Global.player:
 		if !spawned and Global.player.position.x > position.x:
-			print("Spawnei")
 			spawnTerrain()
 
 func spawnTerrain(index: int=-1) -> void:	
@@ -20,6 +19,5 @@ func spawnTerrain(index: int=-1) -> void:
 
 	var newTerrain: TileMapLayer = Global.terrainsList[index].instantiate()
 	newTerrain.position = position + endingPoint.position
-	print(newTerrain.position)
 	get_tree().current_scene.add_child(newTerrain)
 	spawned = true

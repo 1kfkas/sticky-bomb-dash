@@ -1,30 +1,35 @@
-[gd_scene load_steps=10 format=3 uid="uid://ca8njbwel7sp3"]
+[gd_scene load_steps=12 format=3 uid="uid://ca8njbwel7sp3"]
 
 [ext_resource type="Script" uid="uid://bgax3n76p766r" path="res://Scripts/Player.gd" id="1_kyqiw"]
-[ext_resource type="Texture2D" uid="uid://cbf0y2fj7g5uy" path="res://Assets/Player/playerIdleSheet.png" id="1_rpqav"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
-atlas = ExtResource("1_rpqav")
-region = Rect2(0, 0, 16, 16)
+[ext_resource type="Texture2D" uid="uid://cvu3okt4ylbgg" path="res://Assets/Player/playerSheet.png" id="2_kyqiw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gntrk"]
-atlas = ExtResource("1_rpqav")
-region = Rect2(16, 0, 16, 16)
+atlas = ExtResource("2_kyqiw")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dewec"]
-atlas = ExtResource("1_rpqav")
-region = Rect2(32, 0, 16, 16)
+atlas = ExtResource("2_kyqiw")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ixxa"]
-atlas = ExtResource("1_rpqav")
+atlas = ExtResource("2_kyqiw")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
+atlas = ExtResource("2_kyqiw")
 region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52ee3"]
+atlas = ExtResource("2_kyqiw")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhhdu"]
+atlas = ExtResource("2_kyqiw")
+region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nn08x"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kyqiw")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gntrk")
 }, {
@@ -33,10 +38,19 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5ixxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn08x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52ee3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhhdu")
 }],
 "loop": true,
 "name": &"player-idle",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_kyqiw"]
@@ -46,13 +60,15 @@ length = 14.0
 size = Vector2(6, 9)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_kyqiw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_nn08x")
 animation = &"player-idle"
-frame_progress = 0.116281
+frame_progress = 0.231877
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(-4, -5)
