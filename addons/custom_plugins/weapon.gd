@@ -9,8 +9,11 @@ extends CharacterBody2D
 @export var intervalo: Timer
 
 @export_category("Estados")
+@export var municao: int = 0
 @export_enum("NONE", "PLAYER", "ENEMY") var holding: int = 0
 @export var holdTrigger: bool = false
+
+enum HOLDING_TYPE{NONE, PLAYER, ENEMY}
 
 var bullet: Resource = preload("res://Enemys/Bullet.tscn")
 
@@ -19,15 +22,20 @@ var flip_v: float = 1.0
 func _enter_tree() -> void:
 	z_index = 1
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	match(holding):
 		
-		#CASO NÃO TENHA NINGUÉM SEGURANDO A ARMA
-		0:
-			pass
+		HOLDING_TYPE.NONE:
+			
+			if is_on_floor():
+				velocity.x = lerpf(velocity.x, 0, 0.1)
+			else:
+				rotate(PI/5.0)
+				velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity")
+			
+			move_and_slide()
 		
-		#CASO O PLAYER ESTEJA SEGURANDO A ARMA
-		1:
+		HOLDING_TYPE.PLAYER:
 			if Global.player:
 				# Animação da arma
 				
@@ -49,11 +57,15 @@ func _process(delta: float) -> void:
 					pass
 				else:
 					if Input.is_action_just_pressed("action"):
-						var bulletInstance = bullet.instantiate()
-						bulletInstance.direction = rotation
-						bulletInstance.position = bulletPosition.global_position
-						get_tree().current_scene.add_child(bulletInstance)
+						if municao > 0:
+							var bulletInstance = bullet.instantiate()
+							bulletInstance.direction = rotation
+							bulletInstance.position = bulletPosition.global_position
+							get_tree().current_scene.add_child(bulletInstance)
+							municao-=1
+						else:
+							velocity = Vector2(cos(rotation), sin(rotation))*500.0
+							holding = HOLDING_TYPE.NONE
 		
-		#CASO O INIMIGO ESTEJA SEGURANDO A ARMA
-		2:
+		HOLDING_TYPE.ENEMY:
 			pass

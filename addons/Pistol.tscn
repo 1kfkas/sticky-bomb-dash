@@ -11,6 +11,7 @@ z_index = 1
 script = ExtResource("1_sk4x2")
 sprite = NodePath("Sprite2D")
 bulletPosition = NodePath("Marker2D")
+municao = 6
 holding = 1
 metadata/_custom_type_script = "uid://bn40ffjx4bboq"
 

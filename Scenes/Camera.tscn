@@ -1,6 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3fs0ggivrxie"]
+[gd_scene load_steps=5 format=3 uid="uid://d3fs0ggivrxie"]
 
 [ext_resource type="Script" uid="uid://b8i65hflw5xku" path="res://Scripts/Camera.gd" id="1_375tr"]
+[ext_resource type="FontFile" uid="uid://b0bvs37wnf3co" path="res://Assets/Fonte/Daydream.ttf" id="2_na4qu"]
+
+[sub_resource type="GDScript" id="GDScript_na4qu"]
+script/source = "extends Label
+
+func _process(delta: float) -> void:
+	text = str(Global.score)
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqtc1"]
 size = Vector2(20, 300)
@@ -17,6 +25,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 9
+theme_override_constants/margin_bottom = 9
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="GUI/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_na4qu")
+theme_override_font_sizes/font_size = 9
+text = "SCORE: "
+
+[node name="Label2" type="Label" parent="GUI/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_na4qu")
+theme_override_font_sizes/font_size = 9
+text = "534"
+script = SubResource("GDScript_na4qu")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(-170, 0)

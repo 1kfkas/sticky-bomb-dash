@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://ca8njbwel7sp3"]
+[gd_scene load_steps=13 format=3 uid="uid://ca8njbwel7sp3"]
 
 [ext_resource type="Script" uid="uid://bgax3n76p766r" path="res://Scripts/Player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://cvu3okt4ylbgg" path="res://Assets/Player/playerSheet.png" id="2_kyqiw"]
+[ext_resource type="FontFile" uid="uid://b0bvs37wnf3co" path="res://Assets/Fonte/Daydream.ttf" id="3_gntrk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gntrk"]
 atlas = ExtResource("2_kyqiw")
@@ -81,3 +82,14 @@ shape = SubResource("SeparationRayShape2D_kyqiw")
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_kyqiw")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -27.0
+offset_right = 21.0
+offset_bottom = 1.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("3_gntrk")
+theme_override_font_sizes/font_size = 14
+text = "6"
+horizontal_alignment = 1
