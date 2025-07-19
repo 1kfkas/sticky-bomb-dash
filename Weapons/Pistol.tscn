@@ -8,11 +8,12 @@ radius = 7.0
 
 [node name="Pistol" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "bulletPosition")]
 z_index = 1
+scale = Vector2(0.999999, 0.999999)
+velocity = Vector2(0, 3480)
 script = ExtResource("1_sk4x2")
 sprite = NodePath("Sprite2D")
 bulletPosition = NodePath("Marker2D")
 municao = 6
-holding = 1
 metadata/_custom_type_script = "uid://bn40ffjx4bboq"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

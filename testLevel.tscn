@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0dy2cecdruyq"]
+[gd_scene load_steps=6 format=3 uid="uid://b0dy2cecdruyq"]
 
 [ext_resource type="PackedScene" uid="uid://ca8njbwel7sp3" path="res://Scenes/Player.tscn" id="1_8a0p6"]
 [ext_resource type="PackedScene" uid="uid://d3fs0ggivrxie" path="res://Scenes/Camera.tscn" id="3_aldhi"]
 [ext_resource type="PackedScene" uid="uid://b15pwvln10cn5" path="res://Scenes/Terrains/StraightTerrain.tscn" id="3_oos0n"]
-[ext_resource type="PackedScene" uid="uid://dt3keovkbryvo" path="res://addons/Pistol.tscn" id="5_0uj7a"]
+[ext_resource type="PackedScene" uid="uid://dt3keovkbryvo" path="res://Weapons/Pistol.tscn" id="5_0uj7a"]
+[ext_resource type="PackedScene" uid="uid://bwbvry1ogensd" path="res://Enemys/RunnerEnemy.tscn" id="5_dbgv3"]
 
 [node name="testLevel" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_8a0p6")]
-position = Vector2(216, -16)
+position = Vector2(208, -8)
 
 [node name="Camera" parent="." instance=ExtResource("3_aldhi")]
 
@@ -16,3 +17,7 @@ position = Vector2(216, -16)
 
 [node name="Pistol" parent="." instance=ExtResource("5_0uj7a")]
 position = Vector2(232, -24)
+
+[node name="Enemy" parent="." instance=ExtResource("5_dbgv3")]
+position = Vector2(272, -9.026)
+velocity = Vector2(0, 0)

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwbvry1ogensd"]
+
+[ext_resource type="Script" uid="uid://bxtr1lh4la82g" path="res://addons/custom_plugins/enemy.gd" id="1_ee6mc"]
+[ext_resource type="Texture2D" uid="uid://d2mwmv1jly00y" path="res://Assets/Enemys/demon.png" id="2_qwrap"]
+[ext_resource type="PackedScene" uid="uid://dt3keovkbryvo" path="res://Weapons/Pistol.tscn" id="3_qwrap"]
+
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_qwrap"]
+length = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fphmv"]
+size = Vector2(6, 9)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+velocity = Vector2(0, 122475)
+script = ExtResource("1_ee6mc")
+metadata/_custom_type_script = "uid://bxtr1lh4la82g"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-4, -5)
+shape = SubResource("SeparationRayShape2D_qwrap")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(4, -6)
+shape = SubResource("SeparationRayShape2D_qwrap")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_fphmv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qwrap")
+offset = Vector2(0.5, -9)
+
+[node name="Pistol" parent="." instance=ExtResource("3_qwrap")]
+position = Vector2(8, 0)
+holding = 2
