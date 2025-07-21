@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0dy2cecdruyq"]
+
+[ext_resource type="PackedScene" uid="uid://ca8njbwel7sp3" path="res://Scenes/Player.tscn" id="1_8a0p6"]
+[ext_resource type="Texture2D" uid="uid://e7m7i5cgh0ks" path="res://Assets/Background/backgound.png" id="1_dbgv3"]
+[ext_resource type="Shader" uid="uid://duytlb7vuqco6" path="res://Shaders/background.gdshader" id="1_e7apc"]
+[ext_resource type="PackedScene" uid="uid://d3fs0ggivrxie" path="res://Scenes/Camera.tscn" id="3_aldhi"]
+[ext_resource type="PackedScene" uid="uid://b15pwvln10cn5" path="res://Scenes/Terrains/StraightTerrain.tscn" id="3_oos0n"]
+[ext_resource type="PackedScene" uid="uid://dt3keovkbryvo" path="res://Weapons/Pistol.tscn" id="5_0uj7a"]
+[ext_resource type="PackedScene" uid="uid://bwbvry1ogensd" path="res://Enemys/RunnerEnemy.tscn" id="5_dbgv3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rswge"]
+shader = ExtResource("1_e7apc")
+shader_parameter/speed = 0.1
+
+[sub_resource type="GDScript" id="GDScript_e7apc"]
+script/source = "extends TextureRect
+
+func _process(delta: float) -> void:
+	material.set(\"shader_parameter/speed\", 5.0)s
+	if Global.player:
+		pass
+"
+
+[node name="testLevel" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_rswge")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dbgv3")
+stretch_mode = 1
+script = SubResource("GDScript_e7apc")
+
+[node name="Player" parent="." instance=ExtResource("1_8a0p6")]
+position = Vector2(208, -8)
+
+[node name="Camera" parent="." instance=ExtResource("3_aldhi")]
+
+[node name="StraightTerrain" parent="." instance=ExtResource("3_oos0n")]
+
+[node name="Pistol" parent="." instance=ExtResource("5_0uj7a")]
+position = Vector2(232, -24)
+holding = 1
+
+[node name="Enemy" parent="." instance=ExtResource("5_dbgv3")]
+position = Vector2(272, -9.026)
+velocity = Vector2(0, 0)

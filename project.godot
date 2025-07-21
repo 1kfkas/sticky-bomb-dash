@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Sticky Bomb Dash"
-run/main_scene="uid://b0dy2cecdruyq"
+run/main_scene="uid://bwa4fgj58kv8g"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://Scripts/Global.gd"
+AudioManager="*res://Scenes/AudioManager.tscn"
 
 [display]
 
@@ -36,6 +37,8 @@ enabled=PackedStringArray("res://addons/custom_plugins/plugin.cfg")
 
 Player=""
 Camera=""
+Enemy=""
+Projetil=""
 
 [input]
 

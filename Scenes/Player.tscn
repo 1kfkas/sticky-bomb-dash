@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://ca8njbwel7sp3"]
+[gd_scene load_steps=17 format=3 uid="uid://ca8njbwel7sp3"]
 
 [ext_resource type="Script" uid="uid://bgax3n76p766r" path="res://Scripts/Player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://cvu3okt4ylbgg" path="res://Assets/Player/playerSheet.png" id="2_kyqiw"]
 [ext_resource type="FontFile" uid="uid://b0bvs37wnf3co" path="res://Assets/Fonte/Daydream.ttf" id="3_gntrk"]
+[ext_resource type="Script" uid="uid://b257yeqvf8sg8" path="res://Scripts/Enemys/gpu_particles_2d.gd" id="4_dewec"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gntrk"]
 atlas = ExtResource("2_kyqiw")
@@ -60,6 +61,25 @@ length = 14.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyqiw"]
 size = Vector2(6, 9)
 
+[sub_resource type="Curve" id="Curve_5ixxa"]
+_data = [Vector2(0.0692308, 1), 0.0, 0.0, 0, 0, Vector2(0.207692, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_dewec"]
+curve = SubResource("Curve_5ixxa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nn08x"]
+particle_flag_disable_z = true
+angle_min = -1014.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_max = 125.0
+gravity = Vector3(0, 63.835, 0)
+scale_min = 0.0
+scale_max = 1.5
+color = Color(0.94902, 0.329412, 0.14902, 1)
+alpha_curve = SubResource("CurveTexture_dewec")
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
 collision_mask = 2
@@ -79,11 +99,16 @@ shape = SubResource("SeparationRayShape2D_kyqiw")
 position = Vector2(4, -6)
 shape = SubResource("SeparationRayShape2D_kyqiw")
 
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_kyqiw")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -19.0
 offset_top = -27.0
 offset_right = 21.0
@@ -93,3 +118,15 @@ theme_override_fonts/font = ExtResource("3_gntrk")
 theme_override_font_sizes/font_size = 14
 text = "6"
 horizontal_alignment = 1
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 1168
+lifetime = 1.37
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_nn08x")
+script = ExtResource("4_dewec")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="finished" from="GPUParticles2D" to="GPUParticles2D" method="_on_finished"]

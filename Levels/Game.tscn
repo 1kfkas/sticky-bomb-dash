@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0dy2cecdruyq"]
+
+[ext_resource type="Shader" uid="uid://duytlb7vuqco6" path="res://Shaders/background.gdshader" id="1_jr1ro"]
+[ext_resource type="Texture2D" uid="uid://e7m7i5cgh0ks" path="res://Assets/Background/backgound.png" id="2_dygi0"]
+[ext_resource type="PackedScene" uid="uid://ca8njbwel7sp3" path="res://Scenes/Player.tscn" id="3_d5jmm"]
+[ext_resource type="PackedScene" uid="uid://d3fs0ggivrxie" path="res://Scenes/Camera.tscn" id="4_n3tvm"]
+[ext_resource type="PackedScene" uid="uid://dt3keovkbryvo" path="res://Weapons/Pistol.tscn" id="5_y58dp"]
+[ext_resource type="PackedScene" uid="uid://dorjeqh8ofo5g" path="res://Scenes/Terrains/TerrenoReto.tscn" id="6_dygi0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rswge"]
+shader = ExtResource("1_jr1ro")
+shader_parameter/speed = 0.1
+
+[node name="Game" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_rswge")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_dygi0")
+stretch_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("3_d5jmm")]
+position = Vector2(208, -8)
+
+[node name="Camera" parent="." instance=ExtResource("4_n3tvm")]
+
+[node name="Pistol" parent="." instance=ExtResource("5_y58dp")]
+position = Vector2(232, -24)
+holding = 1
+
+[node name="TerrenoReto" parent="." instance=ExtResource("6_dygi0")]

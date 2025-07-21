@@ -1,20 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwbvry1ogensd"]
+[gd_scene load_steps=9 format=3 uid="uid://bwbvry1ogensd"]
 
 [ext_resource type="Script" uid="uid://bxtr1lh4la82g" path="res://addons/custom_plugins/enemy.gd" id="1_ee6mc"]
 [ext_resource type="Texture2D" uid="uid://d2mwmv1jly00y" path="res://Assets/Enemys/demon.png" id="2_qwrap"]
-[ext_resource type="PackedScene" uid="uid://dt3keovkbryvo" path="res://Weapons/Pistol.tscn" id="3_qwrap"]
+[ext_resource type="Script" uid="uid://b257yeqvf8sg8" path="res://Scripts/Enemys/gpu_particles_2d.gd" id="4_fphmv"]
 
 [sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_qwrap"]
 length = 14.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fphmv"]
-size = Vector2(6, 9)
+size = Vector2(12, 17)
 
-[node name="Enemy" type="CharacterBody2D"]
+[sub_resource type="Curve" id="Curve_jjtit"]
+_data = [Vector2(0.0692308, 1), 0.0, 0.0, 0, 0, Vector2(0.207692, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_cm0o1"]
+curve = SubResource("Curve_jjtit")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jjhl0"]
+particle_flag_disable_z = true
+angle_min = -1014.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_max = 125.0
+gravity = Vector3(0, 63.835, 0)
+scale_min = 0.0
+scale_max = 1.5
+color = Color(0.94902, 0.329412, 0.14902, 1)
+alpha_curve = SubResource("CurveTexture_cm0o1")
+
+[node name="RunnerEnemy" type="CharacterBody2D" node_paths=PackedStringArray("hitbox") groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 2
-velocity = Vector2(0, 122475)
 script = ExtResource("1_ee6mc")
+move = true
+hitbox = NodePath("Area2D")
+scorable = true
 metadata/_custom_type_script = "uid://bxtr1lh4la82g"
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
@@ -25,14 +46,27 @@ shape = SubResource("SeparationRayShape2D_qwrap")
 position = Vector2(4, -6)
 shape = SubResource("SeparationRayShape2D_qwrap")
 
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_fphmv")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_qwrap")
 offset = Vector2(0.5, -9)
 
-[node name="Pistol" parent="." instance=ExtResource("3_qwrap")]
-position = Vector2(8, 0)
-holding = 2
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -2)
+collision_layer = 3
+collision_mask = 3
+monitoring = false
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_fphmv")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 1168
+lifetime = 1.37
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_jjhl0")
+script = ExtResource("4_fphmv")
+
+[connection signal="finished" from="GPUParticles2D" to="GPUParticles2D" method="_on_finished"]
